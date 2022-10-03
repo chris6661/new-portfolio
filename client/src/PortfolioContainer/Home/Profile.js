@@ -1,5 +1,6 @@
 import React from "react";
 import Typical from 'react-typical'; 
+
 export default function Profile() {
   return (
     <div className="profile-container">
@@ -32,9 +33,9 @@ export default function Profile() {
                     <Typical
                     loop={Infinity}
                     steps = {[
-                        "Full Stack Developer 💻", 
+                        "Full Stack Developer", 
                         1000, 
-                        "MERN Stack Developer 🖥️", 
+                        "MERN Stack Developer", 
                         1000,  
                         // add more in future, use this is baseline
                     ]}
