@@ -1,5 +1,6 @@
 import React from "react";
-import Typical from 'react-typical'; 
+// import Typical from 'react-typical'; 
+import Type from 'react-typed'; 
 
 export default function Profile() {
   return (
@@ -30,7 +31,7 @@ export default function Profile() {
             <span className="primary-text">
                 {" "}
                 <h1>
-                    <Typical
+                    {/* <Typical
                     loop={Infinity}
                     steps = {[
                         "Full Stack Developer", 
@@ -39,8 +40,20 @@ export default function Profile() {
                         1000,  
                         // add more in future, use this is baseline
                     ]}
-                    />
+                    /> */}
+
+                <Type
+                // className="typed-text"
+                strings={["Full Stack Web Developer", "Let's build something together!"]}
+                typeSpeed={40}
+                backSpeed={60}
+                loop
+                />
+
                 </h1>
+                <span className="profile-role-tagline">
+                    Developer able to build both front and back end applications.
+                </span>
             </span>
           </div>
         </div>
