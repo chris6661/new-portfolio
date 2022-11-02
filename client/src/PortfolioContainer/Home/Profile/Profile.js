@@ -49,7 +49,7 @@ export default function Profile() {
                 backSpeed={60}
                 loop
                 />
-
+            
                 </h1>
                 <span className="profile-role-tagline">
                     Developer able to build both front and back end applications.
