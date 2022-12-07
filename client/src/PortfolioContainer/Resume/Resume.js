@@ -43,13 +43,13 @@ export default function Resume(props) {
 
     const programmingSkillDetails = [
         {skill: "JavaScript", ratingPercentage: 75},
-        {skill: "React JS", ratingPercentage: 75},
-        {skill: "Express JS", ratingPercentage: 75},
-        {skill: "Node JS", ratingPercentage: 75},
-        {skill: "Mongo DB", ratingPercentage: 75},
-        {skill: "HTML", ratingPercentage: 75},
+        {skill: "React JS", ratingPercentage: 90},
+        {skill: "Express JS", ratingPercentage: 60},
+        {skill: "Node JS", ratingPercentage: 65},
+        {skill: "Mongo DB", ratingPercentage: 85},
+        {skill: "HTML", ratingPercentage: 80},
         {skill: "CSS", ratingPercentage: 75},
-        {skill: "Python", ratingPercentage: 75}
+        {skill: "Python", ratingPercentage: 70}
     ];
 
     const projectDetails = [
@@ -57,19 +57,19 @@ export default function Resume(props) {
             title: "Portfolio", 
             duration: {fromDate: "2020", toDate: "2020"}, 
             description: "Portfolio website to showcase my personal work",
-            subheading: "Built with: React JS, Bootstrap"
+            subHeading: "Built with: React JS, Bootstrap"
         },
         {
             title: "Portfolio", 
             duration: {fromDate: "202", toDate: "2021"}, 
             description: "Portfolio website t",
-            subheading: "Built with: React JS, html"
+            subHeading: "Built with: React JS, html"
         },
         {
             title: "Portfolio", 
             duration: {fromDate: "2022", toDate: "2022"}, 
             description: "Portfolio websitewcase my personal work",
-            subheading: "Built with: React JS, css"
+            subHeading: "Built with: React JS, css"
         }
     ];
 
@@ -110,6 +110,47 @@ export default function Resume(props) {
                 <span className='resume-description-text'>
                     -Accomplishents in current role go here, add in some more filler text to render to page
                 </span>
+            </div>,
+            <div className='resume-screen-container programming-skills-container' key = "programming-skills">
+                {programmingSkillDetails.map((skill, index) => (
+                    <div className='skill-parent' key={index}>
+                        <div className='heading-bullet'></div>
+                        <span>{skill.skill}</span>
+                        <div className='skill-precentage'>
+                            <div style={{width: skill.ratingPercentage + "%"}} className="active-percentage">
+                            
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div>,
+
+            <div className='resume-screen-container' key = "projects">
+                {projectDetails.map((projectDetails, index) => (
+                    <ResumeHeading 
+                    key={index}
+                    heading= {projectDetails.title}
+                    subHeading={projectDetails.subHeading}
+                    description={projectDetails.description}
+                    fromDate={projectDetails.duration.fromDate}
+                    toDate = {projectDetails.duration.toDate}
+                    />
+                ))}
+            </div>, 
+
+            <div className='resume-screen-container' key = "interests">
+                <ResumeHeading 
+                heading="Working Out"
+                description="getting in the gym and working out, doing stuff with weights"
+                />
+                <ResumeHeading 
+                heading="Watching Netflix"
+                description="finding new and different things to binge and watch on Netflix"
+                />
+                <ResumeHeading 
+                heading="Hanging with Friends"
+                description="going out and about to hang out and do stuff with friends"
+                />
             </div>
 
         </div>
