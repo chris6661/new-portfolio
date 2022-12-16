@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import ScreenHeading from "../../utilities/ScreenHeading/ScreenHeading"
 import ScrollService from "../../utilities/ScrollService"
 import Animations from "../../utilities/Animations"
@@ -7,10 +7,18 @@ import "./Resume.css"
 export default function Resume(props) {
 
     const [selectedBulletIndex, SetSelectedBulletIndex] = useState(0)
-    const [carousalOffSetStyle, setCarousalOffSetStyle] = useState({})
+    const [carousalOffSetStyle, setCarousalOffsetStyle] = useState({})
+
+    let fadeInScreenHandler = (screen) => {
+        if(screen.fadeScreen !== props.id)
+        return;
+        Animations.animations.fadeInScreen(props.id)
+    }
+    const fadeInSubscription = ScrollService.currentScreenFadeIn.subscribe(fadeInScreenHandler);
 
     const ResumeHeading = (props) => {
-        <div className='resume-heading'>
+        return (
+           <div className='resume-heading'>
             <div className='resume-main-heading'>
                 <div className='heading-bullet'>
                     <span>{props.heading ? props.heading : ""}</span>
@@ -29,15 +37,15 @@ export default function Resume(props) {
                     <span>{props.description ? props.description : ''}</span>
                 </div>
             </div>
-        </div>
-
+        </div> 
+        )
     }
 
     const resumeBullets = [
         {label : "Education", logoSrc: "education.svg"}, 
         {label: "Work History", logoSrc: "work-history.svg"},
         {label: "Programming Skills", logoSrc: "programming-skills.svg"}, 
-        {label: "Projects", logoSrc: "projects.org"}, 
+        {label: "Projects", logoSrc: "projects.svg"}, 
         {label: "Interests", logoSrc: "interests.svg"}  
     ];
 
@@ -156,20 +164,60 @@ export default function Resume(props) {
         </div>
     ]
 
-    let fadeInScreenHandler = (screen) => {
-        if(screen.fadeScreen !== props.id)
-        return
-        Animations.animations.fadeInScreen(props.id)
-    }
+    const handleCarousal = (index) => {
+        let offsetHeight = 360;
+        let newCarousalOffset = {
+            style: {transform: "translateY(" + index * offsetHeight * -1 + "px)"}
+        };
+        setCarousalOffsetStyle(newCarousalOffset)
+        SetSelectedBulletIndex(index); 
+    };
 
-    const fadeInSubscription = ScrollService.currentScreenFadeIn.subscribe(fadeInScreenHandler);
+    const getBullets = () => {
+        return resumeBullets.map((bullet, index) => (
+            <div
+            onClick = {() => handleCarousal(index)}
+            className = {index === selectedBulletIndex ? "bullet selectedBullet" : "bullet"}
+            key = {index}
+            >
+                <img className = "bullet-logo" 
+                src = {require (`../../assets/Resume/${bullet.logoSrc}`).default}
+                alt = "No internet connection."/>
+            </div>
+        ))
+    }
+    
+    const getResumeScreen = () => {
+        return (
+            <div
+            style = {carousalOffSetStyle.style}
+            className = "resume-details-carousal"
+            >
+                {resumeDetails.map((ResumeDetail) => ResumeDetail)}
+            </div>
+        )
+    };
+    
+    useEffect(() => {
+        return() => {
+            fadeInSubscription.unsubscribe();
+        };
+    }, [fadeInSubscription]);
 
   return (
     <div resume-container screen-container id={props.id || ""}>
         <div className='resume-content'>
             <ScreenHeading title={'Resume'} subHeading={"My Bio Details"}/>
+            <div className='resume-card'>
+                <div className='resume-bullets'>
+                    <div className='bulet-container'>
+                        <div className='bullet-icons'></div>
+                        <div className='bullets'>{getBullets()}</div>
+                    </div>
+                </div>
+                <div className='resume-bullet-details'>{getResumeScreen()}</div>
+            </div>
         </div>
-
     </div>
   )
 }
