@@ -41,13 +41,13 @@ export default function Resume(props) {
         )
     }
 
-    const resumeBullets = [
-        {label : "Education", logoSrc: "education.svg"}, 
-        {label: "Work History", logoSrc: "work-history.svg"},
-        {label: "Programming Skills", logoSrc: "programming-skills.svg"}, 
-        {label: "Projects", logoSrc: "projects.svg"}, 
-        {label: "Interests", logoSrc: "interests.svg"}  
-    ];
+      const resumeBullets = [
+    { label: "Education", logoSrc: "education.svg" },
+    { label: "Work History", logoSrc: "work-history.svg" },
+    { label: "Programming Skills", logoSrc: "programming-skills.svg" },
+    { label: "Projects", logoSrc: "projects.svg" },
+    { label: "Interests", logoSrc: "interests.svg" },
+  ];
 
     const programmingSkillDetails = [
         {skill: "JavaScript", ratingPercentage: 75},
@@ -177,15 +177,16 @@ export default function Resume(props) {
         return resumeBullets.map((bullet, index) => (
             <div
             onClick = {() => handleCarousal(index)}
-            className = {index === selectedBulletIndex ? "bullet selectedBullet" : "bullet"}
+            className = {index === selectedBulletIndex ? "bullet selected-bullet" : "bullet"}
             key = {index}
             >
                 <img className = "bullet-logo" 
                 src = {require (`../../assets/Resume/${bullet.logoSrc}`).default}
                 alt = "No internet connection."/>
+                <span className='bullet-label'>{bullet.label}</span>
             </div>
-        ))
-    }
+        ));
+    };
     
     const getResumeScreen = () => {
         return (
@@ -205,12 +206,12 @@ export default function Resume(props) {
     }, [fadeInSubscription]);
 
   return (
-    <div resume-container screen-container id={props.id || ""}>
+    <div className= "resume-container screen-container" id={props.id ||""}>
         <div className='resume-content'>
             <ScreenHeading title={'Resume'} subHeading={"My Bio Details"}/>
             <div className='resume-card'>
                 <div className='resume-bullets'>
-                    <div className='bulet-container'>
+                    <div className='bullet-container'>
                         <div className='bullet-icons'></div>
                         <div className='bullets'>{getBullets()}</div>
                     </div>
